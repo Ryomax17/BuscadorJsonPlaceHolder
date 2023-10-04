@@ -20,12 +20,13 @@ h1 {
     color: #333;
 }
 .search-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+  width: 500px; /* Cambia esto al tamaño que prefieras */
+  min-width: 500px; /* Ajusta este valor al tamaño mínimo que prefieras */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 .search-button {
     background-color: #007BFF;
@@ -63,17 +64,18 @@ body.night-mode {
     cursor: pointer;
   }
 
-  div .lblswitch:after{
-  position: absolute;
-  content: '';
-  width: 22px;
-  height: 22px;
-  background-color: aliceblue;
-  border-radius: 100px;
-  transition: 0.4s;
-  bottom: 0.3em;
-  top: 0.3em;
-  }
+  div .lblswitch:after {
+    position: absolute;
+    content: '';
+    width: 22px;
+    height: 22px;
+    background-color: aliceblue;
+    border-radius: 100px;
+    transition: 0.4s;
+    bottom: 0.3em;
+    top: 0.3em;
+    left: 0; /* posición inicial */
+}
   
   #switch{
     display: none;
@@ -88,24 +90,33 @@ body.night-mode {
     left: 28px;
   }
 
-  .hidden {
-    display: none;
-}
+
   
-.usuario {
-            width: 19%;
-            margin: 1%;
-            display: inline-block;
-            vertical-align: top;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
+  .usuario {
+    width: 200px; /* Cambia esto al tamaño que prefieras */
+    margin: 1%;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+        .info {
+          transition: max-height 0.2s ease-out;
+          overflow: hidden;
+          max-height: 0;
+        }
+        
+        .info:not(.hidden) {
+          max-height: 500px; /* adjust this value to fit your content */
+          transition: max-height 0.5s ease-in;
         }
 
-.info {
-    display: none;
-}
+        body.night-mode #title {
+          color: white;
+      }
 
-.usuario:hover .info {
-    display: block;
-}
+      .contenedor-busqueda {
+        text-align: center;
+    }
