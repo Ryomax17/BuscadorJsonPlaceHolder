@@ -1,44 +1,85 @@
 let btn = document.getElementById('btnBuscar');
+let contenedor = document.getElementById('contenedor');
+let usuariosFiltrados = [];
+let data = [];
 
-btn.addEventListener('click', async () => {
-    try {
-        const respuesta = await fetch('https://jsonplaceholder.typicode.com/users');
-    
-        if (!respuesta.ok) {
-            throw new Error(`Error en la solicitud: ${respuesta.status} - ${respuesta.statusText}`);
+function toggleMode() {
+    const body = document.body
+    body.classList.toggle('day-mode');
+    body.classList.toggle('night-mode');
+  }
+ 
+  if (localStorage.getItem('claseBody')) {
+    const claseGuardada = localStorage.getItem('claseBody');
+    document.body.className = claseGuardada;
+  }
+  
+  window.addEventListener('beforeunload', function() {
+    const claseActual = document.body.className;
+    localStorage.setItem('claseBody', claseActual);
+  });
+
+  
+    async function fetchPeople() {
+        try {
+            const respuesta = await fetch('https://jsonplaceholder.typicode.com/users');
+            data = await respuesta.json();
+            console.log(data);
+            showPeople(data);
+        } catch (error) {
+            console.error('Error al obtener datos:', error);
         }
-    
-        const data = await respuesta.json();
-
-        const valor = document.getElementById('inputBuscar').value.trim().toLowerCase();
-        
-        if (valor != '') {
-        const usuariosFiltrados = data.filter(resultado => resultado.name.toLowerCase().includes(valor));
-
-        console.log(usuariosFiltrados);
-
-        const contenedor = document.getElementById("contenedor");
-        contenedor.innerHTML = "";
-
-        if (usuariosFiltrados.length === 0) {
-            alert('No se encontraron usuarios que coincidan con la búsqueda.');
-        } else {
-            const estructura = document.createElement("div");
-            estructura.innerHTML = `
-                <h2>${usuariosFiltrados[0].name}</h2>
-                <p>Ciudad: ${usuariosFiltrados[0].address.city}</p>
-                <p>Telefono: ${usuariosFiltrados[0].phone}</p>
-                <p>Nombre de usuario: ${usuariosFiltrados[0].username}</p>
-                <p>Email: ${usuariosFiltrados[0].email}</p>
-            `;
-          
-            contenedor.appendChild(estructura);
-        }
-    } else {
-        alert('Debes ingresar un nombre');
-    } 
-
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
     }
-});
+        
+
+  
+  function showPeople(people) {
+      contenedor.innerHTML = '';
+      people.forEach(persona => {
+          const estructura = document.createElement("div");
+          estructura.classList.add("usuario");
+              estructura.innerHTML += `
+                  <h2>${persona.name}</h2>
+                  <div class="info">
+                      <p>Ciudad: ${persona.address.city}</p>
+                      <p>Telefono: ${persona.phone}</p>
+                      <p>Nombre de usuario: ${persona.username}</p>
+                      <p>Email: ${persona.email}</p>
+                  </div>
+              `;
+          estructura.querySelector('.info').classList.add('hidden');
+    
+          estructura.addEventListener('mouseover', () => {
+              estructura.querySelector('.info').classList.remove('hidden');
+          });
+    
+          estructura.addEventListener('mouseout', () => {
+              estructura.querySelector('.info').classList.add('hidden');
+          });
+    
+          contenedor.appendChild(estructura);
+      });
+      }
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchPeople();
+    
+        document.getElementById('inputBuscar').addEventListener('input', function () {
+            const valor = this.value.trim().toLowerCase();
+    
+            contenedor.innerHTML = '';
+    
+            usuariosFiltrados = data.filter(persona => {
+                const lowerCaseValue = valor.toLowerCase();
+                return (
+                    persona.name.toLowerCase().includes(lowerCaseValue) ||
+                    persona.address.city.toLowerCase().includes(lowerCaseValue) ||
+                    persona.phone.toLowerCase().includes(lowerCaseValue) ||
+                    persona.username.toLowerCase().includes(lowerCaseValue) ||
+                    persona.email.toLowerCase().includes(lowerCaseValue)
+                );
+            });
+    
+            showPeople(usuariosFiltrados);
+        });
+    });

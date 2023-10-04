@@ -42,3 +42,70 @@ h1 {
 #contenedor {
     margin-top: 20px;
 }
+
+body.day-mode {
+    background-color: white;
+    color: black;
+  }
+
+body.night-mode {
+    background-color: #141414;
+    color: #ffffff;
+  }
+  
+  div .lblswitch{
+    display: inline-block;
+    width: 55px;
+    height: 30px;
+    background-color: black;
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  div .lblswitch:after{
+  position: absolute;
+  content: '';
+  width: 22px;
+  height: 22px;
+  background-color: aliceblue;
+  border-radius: 100px;
+  transition: 0.4s;
+  bottom: 0.3em;
+  top: 0.3em;
+  }
+  
+  #switch{
+    display: none;
+  }
+  
+  #switch:checked~ .lblswitch{
+    background-color: aliceblue;
+  
+  }
+  #switch:checked~.lblswitch:after {
+    background-color: rgb(5, 5, 5);
+    left: 28px;
+  }
+
+  .hidden {
+    display: none;
+}
+  
+.usuario {
+            width: 19%;
+            margin: 1%;
+            display: inline-block;
+            vertical-align: top;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+.info {
+    display: none;
+}
+
+.usuario:hover .info {
+    display: block;
+}

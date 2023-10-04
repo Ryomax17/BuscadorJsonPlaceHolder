@@ -10,13 +10,16 @@
 
 <body>
   <main>
+    
     <div class="text-center container">
-      <div class="row py-lg-3">
+      
+      <div class="contenedor-busqueda">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light">Buscador de usuarios</h1>
           <input type="search" class="search-input" name="buscar" id="inputBuscar" placeholder="Ej.: Riquelme">
-          <button class="btn btn-primary my-2" id="btnBuscar" class="search-input">Buscar usuarios</button>
         </div>
+        <input type="checkbox" id="switch" onclick="toggleMode()">
+        <label  for="switch" class="lblswitch"></label>
       </div>
     </div>
 
@@ -25,6 +28,7 @@
 
       </div>
     </div>
+    
   </main>
 
   <script src="index.js"></script>
