@@ -22,7 +22,7 @@ function toggleMode() {
   
     async function fetchPeople() {
         try {
-            const respuesta = await fetch('https://jsonplaceholder.typicode.com/users');
+            const respuesta = await fetch('https://my-json-server.typicode.com/maximiliano836/entrega13/personas');
             data = await respuesta.json();
             console.log(data);
             showPeople(data);
@@ -41,10 +41,8 @@ function toggleMode() {
               estructura.innerHTML += `
                   <h2>${persona.name}</h2>
                   <div class="info">
-                      <p>Ciudad: ${persona.address.city}</p>
+                      <p>Ciudad: ${persona.country}</p>
                       <p>Telefono: ${persona.phone}</p>
-                      <p>Nombre de usuario: ${persona.username}</p>
-                      <p>Email: ${persona.email}</p>
                   </div>
               `;
           estructura.querySelector('.info').classList.add('hidden');
@@ -73,10 +71,8 @@ function toggleMode() {
                 const lowerCaseValue = valor.toLowerCase();
                 return (
                     persona.name.toLowerCase().includes(lowerCaseValue) ||
-                    persona.address.city.toLowerCase().includes(lowerCaseValue) ||
-                    persona.phone.toLowerCase().includes(lowerCaseValue) ||
-                    persona.username.toLowerCase().includes(lowerCaseValue) ||
-                    persona.email.toLowerCase().includes(lowerCaseValue)
+                    persona.country.toLowerCase().includes(lowerCaseValue) ||
+                    persona.phone.toLowerCase().includes(lowerCaseValue)
                 );
             });
     
